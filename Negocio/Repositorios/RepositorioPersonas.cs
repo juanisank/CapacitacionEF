@@ -4,15 +4,24 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace Negocio
 {
 
     
     public class RepositorioPersonas
-    {   
+    {
         //Variable con la cual accedo a la base de datos tanto para leer como para escribir.
-        PersonasDBEntities db = new PersonasDBEntities();
+        PersonasDBEntities db;
+
+        public RepositorioPersonas()
+        {
+            db = new PersonasDBEntities();
+            db.Configuration.LazyLoadingEnabled = false;
+            db.Configuration.ProxyCreationEnabled = false;
+        }
+
 
         public void Agregar(Personas paramPersona)
         {
@@ -46,8 +55,7 @@ namespace Negocio
         public Personas ObtenerPersona(int id)
         {
             Personas objPersona = db.Personas.Where(p => p.IdPersona == id).FirstOrDefault();
-            db.Personas.Count();
-
+  
             return objPersona;
         }
 
@@ -85,5 +93,17 @@ namespace Negocio
 
             return numeroElementos;
         }
+
+
+        public List<Personas> ObtenerPersonasOcupacion(string ocupacion)
+        {
+            return db.Personas.Where(p => p.Ocupaciones.Descripcion == ocupacion).Include(p => p.Ocupaciones).ToList();
+        }
+
+        public List<Personas> ObtenerPersonasOcupacion(List<string>  ocupaciones)
+        {
+            return db.Personas.Where(p => ocupaciones.Contains(p.Ocupaciones.Descripcion)).ToList();
+        }
+
     }
 }

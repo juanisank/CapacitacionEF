@@ -17,5 +17,8 @@ namespace Negocio
         public int IdPersona { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
+        public Nullable<int> IdOcupacion { get; set; }
+    
+        public virtual Ocupaciones Ocupaciones { get; set; }
     }
 }

@@ -28,6 +28,7 @@ namespace Negocio
         }
     
         public virtual DbSet<Personas> Personas { get; set; }
+        public virtual DbSet<Ocupaciones> Ocupaciones { get; set; }
     
         public virtual ObjectResult<SP_ListarPersonas_Result> SP_ListarPersonas()
         {

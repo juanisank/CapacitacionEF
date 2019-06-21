@@ -53,6 +53,9 @@
   <ItemGroup>
     <Compile Include="Entidades\Factura.cs" />
     <Compile Include="Entidades\ItemFactura.cs" />
+    <Compile Include="Ocupaciones.cs">
+      <DependentUpon>PersonasEntitiesDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositorios\RepositorioFacturas.cs" />
     <Compile Include="Repositorios\RepositorioPersonas.cs" />
     <Compile Include="Personas.cs">

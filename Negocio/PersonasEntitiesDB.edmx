@@ -5,6 +5,13 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="PersonasDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Ocupaciones">
+          <Key>
+            <PropertyRef Name="IdOcupacion" />
+          </Key>
+          <Property Name="IdOcupacion" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Personas">
           <Key>
             <PropertyRef Name="IdPersona" />
@@ -12,13 +19,31 @@
           <Property Name="IdPersona" Type="int" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" />
           <Property Name="Apellido" Type="varchar" MaxLength="50" />
+          <Property Name="IdOcupacion" Type="int" />
         </EntityType>
+        <Association Name="FK_Personas_Personas">
+          <End Role="Ocupaciones" Type="Self.Ocupaciones" Multiplicity="0..1" />
+          <End Role="Personas" Type="Self.Personas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ocupaciones">
+              <PropertyRef Name="IdOcupacion" />
+            </Principal>
+            <Dependent Role="Personas">
+              <PropertyRef Name="IdOcupacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="SP_ListarPersonas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SP_ObtenerPersona" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdPersona" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="PersonasDBModelStoreContainer">
+          <EntitySet Name="Ocupaciones" EntityType="Self.Ocupaciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Personas" EntityType="Self.Personas" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Personas_Personas" Association="Self.FK_Personas_Personas">
+            <End Role="Ocupaciones" EntitySet="Ocupaciones" />
+            <End Role="Personas" EntitySet="Personas" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -31,13 +56,20 @@
           <Property Name="IdPersona" Type="Int32" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdOcupacion" Type="Int32" />
+          <NavigationProperty Name="Ocupaciones" Relationship="PersonasDBModel.FK_Personas_Personas" FromRole="Personas" ToRole="Ocupaciones" />
         </EntityType>
         <EntityContainer Name="PersonasDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Personas" EntityType="Self.Personas" />
           <FunctionImport Name="SP_ListarPersonas" ReturnType="Collection(PersonasDBModel.SP_ListarPersonas_Result)" />
           <FunctionImport Name="SP_ObtenerPersona" ReturnType="Collection(PersonasDBModel.SP_ObtenerPersona_Result)">
-            <Parameter Name="IdPersona" Mode="In" Type="Int32" />
+          <Parameter Name="IdPersona" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Ocupaciones" EntityType="PersonasDBModel.Ocupaciones" />
+          <AssociationSet Name="FK_Personas_Personas" Association="PersonasDBModel.FK_Personas_Personas">
+            <End Role="Ocupaciones" EntitySet="Ocupaciones" />
+            <End Role="Personas" EntitySet="Personas" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="SP_ListarPersonas_Result">
           <Property Type="Int32" Name="IdPersona" Nullable="false" />
@@ -49,6 +81,26 @@
           <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Apellido" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <EntityType Name="Ocupaciones">
+          <Key>
+            <PropertyRef Name="IdOcupacion" />
+          </Key>
+          <Property Name="IdOcupacion" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Personas" Relationship="PersonasDBModel.FK_Personas_Personas" FromRole="Ocupaciones" ToRole="Personas" />
+        </EntityType>
+        <Association Name="FK_Personas_Personas">
+          <End Type="PersonasDBModel.Ocupaciones" Role="Ocupaciones" Multiplicity="0..1" />
+          <End Type="PersonasDBModel.Personas" Role="Personas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ocupaciones">
+              <PropertyRef Name="IdOcupacion" />
+            </Principal>
+            <Dependent Role="Personas">
+              <PropertyRef Name="IdOcupacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -58,6 +110,7 @@
           <EntitySetMapping Name="Personas">
             <EntityTypeMapping TypeName="PersonasDBModel.Personas">
               <MappingFragment StoreEntitySet="Personas">
+                <ScalarProperty Name="IdOcupacion" ColumnName="IdOcupacion" />
                 <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Apellido" ColumnName="Apellido" />
@@ -82,6 +135,14 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Ocupaciones">
+            <EntityTypeMapping TypeName="PersonasDBModel.Ocupaciones">
+              <MappingFragment StoreEntitySet="Ocupaciones">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdOcupacion" ColumnName="IdOcupacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -6,6 +6,8 @@
     <edmx:Diagrams>
       <Diagram DiagramId="0724a51791a04dddbfafe4c8ec1e4734" Name="Diagram1">
         <EntityTypeShape EntityType="PersonasDBModel.Personas" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PersonasDBModel.Ocupaciones" Width="1.5" PointX="0.75" PointY="4" />
+        <AssociationConnector Association="PersonasDBModel.FK_Personas_Personas" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
