@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Negocio
 {
-
+    // Ejemplos de Linq trabajando en memoria con colecciones (List)
     public class RepositorioFacturas
     {
         List<Factura> lstFacturas = new List<Factura>();
@@ -59,9 +59,33 @@ namespace Negocio
             });
         }
 
-        public Factura ObtenerFactura(int nroFactura)
+        //SM: Linq Sintaxis de Metodos, utiliza metodos de extension con expresiones Lamda
+        public Factura ObtenerFacturaSM(int nroFactura)
         {
             return lstFacturas.Where(p => p.NroFactura == nroFactura).FirstOrDefault();
+        }
+
+        //SC: Linq Sintaxis de Consulta. Se realiza sobre la coleccion un tipo de consulta estilo SQL. 
+        public Factura ObtenerFacturaSC(int nroFactura)
+        {
+            return (from p in lstFacturas where p.NroFactura == nroFactura select p).FirstOrDefault();
+        }
+
+        //Devuelvo objeto anonimo, un que existe solo en tiempo de ejecuccion. Estos tipos de objetos pueden ser capturados y tenerlos tipados a partir de inferencia de tipos "var"
+        public Object ObtenerFacturaSCv2(int nroFactura)
+        {
+
+            var objAnonimo = (from p in lstFacturas
+                              where p.NroFactura == nroFactura
+                              select new
+                              {
+                                  NumeroFactura = p.NroFactura,
+                                  Total = p.MontoTotal
+
+                              }).FirstOrDefault();
+
+
+            return objAnonimo;
         }
 
         public Factura ObtenerFacturaMasCara()
@@ -74,6 +98,11 @@ namespace Negocio
         public List<Factura> ObtenerFacturasOrdenadasPorCliente()
         {
             return lstFacturas.OrderBy(p => p.Cliente).ToList();
+        }
+
+        public List<Factura> ObtenerFacturasPorRangoMontos(double montoMin, double montoMax)
+        {
+            return lstFacturas.Where(p=> p.MontoTotal > montoMin && p.MontoTotal<montoMax).ToList();
         }
 
         public int ObtenerCantidadFacturasPorCliente(string Cliente)

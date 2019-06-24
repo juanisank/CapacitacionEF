@@ -14,10 +14,11 @@ namespace Consola.Test
 
             RepositorioPersonas repositorio = new RepositorioPersonas();
 
-            List<Personas> lstPersonasOcupacion = repositorio.ObtenerPersonasOcupacion("Medico");
-            List<Personas> lstPersonas = repositorio.ListarPersonasSP();
+            //List<Personas> lstPersonasOcupacion = repositorio.ObtenerPersonasOcupacion("Medico");
+            //List<Personas> lstPersonas = repositorio.ListarSP();
 
-            List<Personas> lstPersonas2 = repositorio.ListarPersonasSPv2();
+            List<Personas> lstPersonas2 = repositorio.Listar();
+     //       List<Personas> lstPersonas3 = repositorio.ListarInclude();
 
             Personas objPersona = repositorio.ObtenerPersonaSP(1);
 
