@@ -85,7 +85,7 @@ namespace Negocio
 
         public Personas ObtenerPersona(int id)
         {
-            Personas objPersona = db.Personas.Where(p => p.IdPersona == id).FirstOrDefault();
+            Personas objPersona = db.Personas.Where(p => p.IdPersona == id).Include(p=>p.Ocupaciones).FirstOrDefault();
   
             return objPersona;
         }
@@ -121,5 +121,9 @@ namespace Negocio
             return db.Personas.Where(p => ocupaciones.Contains(p.Ocupaciones.Descripcion)).ToList();
         }
 
+        public List<Ocupaciones> ObtenerOcupaciones()
+        {
+            return db.Ocupaciones.ToList();
+        }
     }
 }

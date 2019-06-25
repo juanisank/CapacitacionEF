@@ -1,0 +1,41 @@
+Entity Framework
+	- Actualizacion de campos de tabla
+	- Agregado de tabla
+	- Lazy Loading / Include:  http://www.tuprogramacion.com/programacion/lazy-load-en-entity-framework/
+	- Propiedades de navegaciones
+	- Obtener datos de Stored Procedure, diferentes formas.
+
+Linq
+	- Sintaxis de metodos - expresiones lamda
+	- Sintaxis de consulta
+	- objetos anonimos.
+
+MVC
+
+
+- Controladores
+- Acciones
+	- GET/POST
+- Modelos
+- Vistas
+	- Razor
+	- Helpers https://www.c-sharpcorner.com/UploadFile/8ef97c/html-helpers-in-Asp-Net-mvc-5-0-part-ten/
+	- Validations / DataAnnotations -  [Required(ErrorMessage = "Campo obligatorio")]-  [StringLength(50)] - [Range(5,50)] - 
+		- https://www.tutorialsteacher.com/mvc/implement-validation-in-asp.net-mvc
+- Viewbags
+- Obtener informacion de una vista
+- Pasar informacion a una vista
+- Global Asax
+
+- Scalafolding
+
+- App_Start
+
+
+- Comentarios Finales
+	- Curso general MVC + EF 6: https://www.slideshare.net/hzahed/aspnet-mvc-5-ef-6-vs2015
+	- Notas Generales MVC: https://www.tutorialsteacher.com/mvc/routing-in-mvc
+	- Patron repositorio
+	- Separar entidades dto de entidades entity framework
+	- Java Script / Ajax - Angular Js
+	- Bootstrap.

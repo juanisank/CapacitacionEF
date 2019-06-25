@@ -11,10 +11,14 @@ namespace Negocio
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Personas
     {
+        
         public int IdPersona { get; set; }
+
+        [Required(ErrorMessage = "Campo obligatorio")]
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public Nullable<int> IdOcupacion { get; set; }
