@@ -9,6 +9,13 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<form action="" method="post">
+    <div class="form-inline">
+        <input type="search" class="form-control" name="iptSearch" placeholder="" />
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </div>
+</form>
+<br />
 <table class="table">
     <tr>
         <th>
@@ -23,23 +30,24 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Apellido)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ocupaciones.Descripcion)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdPersona }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdPersona }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdPersona })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ocupaciones.Descripcion)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.IdPersona }) |
+                @Html.ActionLink("Details", "Details", new { id = item.IdPersona }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.IdPersona })
+            </td>
+        </tr>
+    }
 
 </table>

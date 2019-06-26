@@ -33,6 +33,8 @@ namespace Negocio
             Personas objPersona = db.Personas.Where(p => p.IdPersona == paramPersona.IdPersona).FirstOrDefault();
             objPersona.Nombre = paramPersona.Nombre;
             objPersona.Apellido = paramPersona.Apellido;
+            objPersona.IdOcupacion = paramPersona.IdOcupacion;
+
             db.SaveChanges();
         }
 
@@ -46,6 +48,13 @@ namespace Negocio
         public List<Personas> Listar()
         {
             List<Personas> resultadoPersonas = db.Personas.ToList();
+
+            return resultadoPersonas;
+        }
+
+        public List<Personas> Listar(string paramBusqueda)
+        {
+            List<Personas> resultadoPersonas = db.Personas.Where(p=> p.Apellido == paramBusqueda || p.Nombre == paramBusqueda).Include(p=>p.Ocupaciones).ToList();
 
             return resultadoPersonas;
         }

@@ -4,14 +4,14 @@ Entity Framework
 	- Lazy Loading / Include:  http://www.tuprogramacion.com/programacion/lazy-load-en-entity-framework/
 	- Propiedades de navegaciones
 	- Obtener datos de Stored Procedure, diferentes formas.
+	- Archivos de configuracion
 
 Linq
-	- Sintaxis de metodos - expresiones lamda
+	- Sintaxis de metodos - expresiones lamda (ver ppt curso EIT)
 	- Sintaxis de consulta
 	- objetos anonimos.
 
 MVC
-
 
 - Controladores
 - Acciones
